@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bajo El Mismo Cuadro | Central de Producción Creativa</title>
+    <title>Bajo El Mismo Cuadro | Central de Contenidos & Marketing Audiovisual</title>
     <style>
         :root {
-            --bg-dark: #050505; /* Negro profundo cinematográfico */
-            --bg-panel: #111111; /* Gris muy oscuro para paneles */
+            /* PALETA DE COLOR DERIVADA DEL LOGO */
+            --logo-orange: #ff9100; /* Naranja eléctrico del logo */
+            --logo-white: #ffffff;
+            --bg-deep-black: #000000;
+            --bg-card: #080808;
             --text-main: #ffffff;
-            --text-muted: #888888;
-            --accent-vfx: #ff3e3e; /* Rojo neón/alerta, muy de VFX/render */
-            --accent-vfx-glow: rgba(255, 62, 62, 0.3);
-            --border: #222222;
-            --font-impact: 'Oswald', sans-serif; /* Tipografía fuerte para títulos */
+            --text-muted: #777777;
+            --border: #1a1a1a;
+            --font-display: 'Oswald', sans-serif;
             --font-body: 'Avenir', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        /* Importar fuente Oswald para un look más "cine" */
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap');
+        /* Importar fuente Oswald para un look más agresivo/cine */
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap');
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-deep-black);
             color: var(--text-main);
             font-family: var(--font-body);
             margin: 0;
@@ -30,34 +31,18 @@
             overflow-x: hidden;
         }
 
-        /* --- Panel Lateral Estilizado (Sidebar) --- */
+        /* --- MENÚ LATERAL MINIMAL-TECH (SIDEBAR) --- */
         .sidebar {
-            width: 260px;
-            background-color: var(--bg-panel);
+            width: 180px; /* Reducido drásticamente */
+            background-color: transparent; /* Más ligero */
             border-right: 1px solid var(--border);
-            padding: 30px 20px;
+            padding: 40px 10px;
             display: flex;
             flex-direction: column;
-            position: fixed; /* Fixed para que siempre esté ahí */
+            position: fixed;
             height: 100vh;
             z-index: 100;
-        }
-
-        .logo-area {
-            font-family: var(--font-impact);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 50px;
-            border-bottom: 2px solid var(--accent-vfx);
-            padding-bottom: 15px;
-            text-align: center;
-        }
-
-        .logo-area span {
-            color: var(--accent-vfx);
+            transition: 0.3s;
         }
 
         .nav-links {
@@ -68,291 +53,300 @@
         }
 
         .nav-links li {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--text-muted);
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: 0.3s ease;
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border-radius: 6px;
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
         }
 
-        /* Efecto de hover tipo neón visual */
+        /* Efecto de hover tipo neón visual sutil */
         .nav-links a:hover, .nav-links a.active {
-            color: var(--text-main);
-            background-color: rgba(255, 255, 255, 0.03);
-            box-shadow: 0 0 15px var(--accent-vfx-glow);
-            border: 1px solid rgba(255, 62, 62, 0.2);
+            color: var(--logo-white);
+            background-color: rgba(255, 145, 0, 0.05);
+            box-shadow: 0 0 10px rgba(255, 145, 0, 0.15);
         }
 
-        .status-indicator {
-            font-size: 0.8rem;
-            color: #4caf50; /* Verde online */
+        .status-badge {
+            font-size: 0.75rem;
+            color: var(--logo-orange);
             margin-top: auto;
             text-align: center;
-            padding: 10px;
-            background-color: rgba(76, 175, 80, 0.1);
-            border-radius: 4px;
+            padding: 8px;
+            background-color: rgba(255, 145, 0, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            letter-spacing: 1px;
+            font-weight: bold;
         }
 
-        /* --- Panel Principal (Main Content) --- */
+        /* --- PANEL PRINCIPAL DE CONTENIDO VISUAL --- */
         .main-content {
             flex-grow: 1;
-            margin-left: 260px; /* Espacio para la sidebar fixed */
-            padding: 50px;
+            margin-left: 180px; /* Espacio para la sidebar fixed */
+            padding: 60px;
         }
 
         header {
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 0;
-            width: 100px;
-            height: 4px;
-            background-color: var(--accent-vfx);
-            box-shadow: 0 0 15px var(--accent-vfx-glow);
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         header h1 {
-            font-family: var(--font-impact);
-            font-size: 3rem;
+            font-family: var(--font-display);
+            font-size: 2.8rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0 0 10px 0;
+            letter-spacing: 1px;
+            margin: 0;
         }
 
-        header p {
-            font-size: 1.2rem;
+        header .tagline {
+            font-size: 1.1rem;
             color: var(--text-muted);
-            margin: 0;
             font-weight: 300;
         }
 
-        /* --- Títulos de Sección Estilizados --- */
-        .section-title {
-            font-family: var(--font-impact);
+        header span {
+            color: var(--logo-orange);
+        }
+
+        /* SECCIONES TIPO DASHBOARD VISUAL */
+        .section-panel {
+            margin-bottom: 70px;
+        }
+
+        .panel-title {
+            font-family: var(--font-display);
             font-size: 1.8rem;
-            color: var(--text-main);
-            margin-bottom: 30px;
+            color: var(--logo-white);
+            margin-bottom: 35px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            display: flex;
-            align-items: center;
+            position: relative;
+            padding-left: 15px;
         }
 
-        .section-title::before {
+        .panel-title::before {
             content: '';
             display: inline-block;
-            width: 15px;
-            height: 15px;
-            background-color: var(--accent-vfx);
-            margin-right: 15px;
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--accent-vfx-glow);
-        }
-
-        /* --- Flujo de Trabajo (Pipeline Visual) --- */
-        .workflow-section {
-            margin-bottom: 60px;
-        }
-
-        .pipeline-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-        }
-
-        .pipeline-card {
-            background-color: var(--bg-panel);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 25px;
-            position: relative;
-            transition: 0.4s ease;
-            overflow: hidden;
-        }
-
-        .pipeline-card:hover {
-            border-color: rgba(255, 62, 62, 0.4);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        /* Efecto visual de fondo en hover */
-        .pipeline-card::before {
-            content: '';
+            width: 6px;
+            height: 100%;
+            background-color: var(--logo-orange);
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(255,62,62,0.05) 0%, rgba(0,0,0,0) 100%);
-            opacity: 0;
-            transition: 0.4s ease;
+            left: 0;
+            top: 0;
+            border-radius: 1px;
         }
 
-        .pipeline-card:hover::before {
-            opacity: 1;
-        }
-
-        .step-id {
-            font-family: var(--font-impact);
-            font-size: 2.5rem;
-            color: rgba(255, 62, 62, 0.1);
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-weight: 700;
-        }
-
-        .step-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: var(--accent-vfx);
-        }
-
-        .step-title {
-            font-family: var(--font-impact);
-            font-size: 1.3rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-
-        .step-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* --- Sección de Proyectos (Grilla Visual) --- */
-        .projects-grid {
+        /* --- GRILLA DE PROYECTOS TIPO 'GALERÍA DE ESTADOS' --- */
+        .showcase-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
 
-        .project-card {
-            background-color: var(--bg-panel);
+        .showcase-card {
+            background-color: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
             transition: 0.4s ease;
             position: relative;
+            cursor: pointer;
         }
 
-        .project-card:hover {
-            border-color: var(--accent-vfx);
-            transform: scale(1.02);
-            box-shadow: 0 15px 40px rgba(255, 62, 62, 0.15);
+        .showcase-card:hover {
+            border-color: rgba(255, 145, 0, 0.3);
+            transform: scale(1.015);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
         }
 
-        /* Imagen de proyecto (Placeholder visual) */
-        .project-thumb {
-            height: 200px;
-            background-color: #222;
+        /* Placeholder de Imagen con Efecto de Hover */
+        .card-thumb {
+            height: 190px;
+            background-color: #111;
             background-size: cover;
             background-position: center;
             position: relative;
         }
 
-        .project-thumb::after {
+        .card-thumb::after {
             content: '';
             position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 50%;
-            background: linear-gradient(to top, var(--bg-panel), rgba(0,0,0,0));
+            bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to top, var(--bg-card), rgba(0,0,0,0));
         }
 
-        .project-details {
-            padding: 25px;
+        .card-details {
+            padding: 22px;
         }
 
-        .project-status {
-            font-size: 0.8rem;
+        .content-type {
+            font-size: 0.75rem;
             text-transform: uppercase;
             font-weight: 700;
-            letter-spacing: 1px;
-            padding: 5px 10px;
-            border-radius: 4px;
+            letter-spacing: 1.5px;
+            padding: 4px 10px;
+            border-radius: 3px;
             display: inline-block;
-            margin-bottom: 15px;
-        }
-
-        .status-final {
-            background-color: rgba(76, 175, 80, 0.15);
-            color: #4caf50;
-            border: 1px solid rgba(76, 175, 80, 0.3);
-        }
-
-        .status-prod {
-            background-color: rgba(255, 152, 0, 0.15);
-            color: #ff9800;
-            border: 1px solid rgba(255, 152, 0, 0.3);
+            margin-bottom: 12px;
+            background-color: rgba(255, 145, 0, 0.08);
+            color: var(--logo-orange);
+            border: 1px solid rgba(255, 145, 0, 0.15);
         }
 
         .project-title {
-            font-family: var(--font-impact);
-            font-size: 1.5rem;
+            font-family: var(--font-display);
+            font-size: 1.4rem;
             text-transform: uppercase;
             margin: 0 0 10px 0;
-            color: var(--text-main);
+            color: var(--logo-white);
         }
 
         .project-meta {
             font-size: 0.9rem;
             color: var(--text-muted);
             margin-bottom: 20px;
+            line-height: 1.5;
         }
 
-        .project-meta span {
-            color: var(--accent-vfx);
-            margin-right: 10px;
-        }
-
-        .btn-action {
+        .card-action {
             text-decoration: none;
-            color: var(--text-main);
-            background-color: transparent;
-            border: 2px solid var(--accent-vfx);
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-family: var(--font-impact);
+            color: var(--logo-orange);
+            font-family: var(--font-display);
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: 0.3s ease;
-            display: inline-block;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: 0.3s;
         }
 
-        .btn-action:hover {
-            background-color: var(--accent-vfx);
-            box-shadow: 0 0 20px var(--accent-vfx-glow);
+        .card-action:hover {
+            letter-spacing: 2px;
+            color: var(--logo-white);
         }
 
-        /* --- Media Queries para Móvil --- */
+        /* --- SECCIÓN DE FOTOGRAFÍA (GRILLA MÁS PEQUEÑA) --- */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-card {
+            height: 250px;
+            background-color: #111;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 145, 0, 0.3);
+        }
+
+        /* --- SECCIÓN DE CLIENTES Y MARKETING --- */
+        .marketing-panels {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .testimony-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .testimony-card::before {
+            content: '“';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(255, 145, 0, 0.08);
+            font-family: Georgia, serif;
+        }
+
+        .testimony-quote {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimony-author {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .author-name {
+            font-weight: bold;
+            color: var(--logo-white);
+        }
+
+        .author-comp {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .mkt-box {
+            background-color: transparent;
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .mkt-box h3 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--logo-orange);
+        }
+
+        .mkt-box p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* --- MEDIA QUERIES PARA ADAPTACIÓN MÓVIL --- */
         @media (max-width: 992px) {
             body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); padding: 20px; }
-            .logo-area { margin-bottom: 20px; }
-            .nav-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); padding: 15px 30px; }
+            .nav-links { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
             .nav-links li { margin-bottom: 0; }
             .main-content { margin-left: 0; padding: 30px; }
-            .pipeline-container { grid-template-columns: 1fr 1fr; }
+            .marketing-panels { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 576px) {
-            header h1 { font-size: 2rem; }
-            .pipeline-container { grid-template-columns: 1fr; }
-            .projects-grid { grid-template-columns: 1fr; }
+            header { flex-direction: column; text-align: center; }
+            header h1 { font-size: 2.1rem; }
+            .showcase-grid { grid-template-columns: 1fr; }
+            .photo-grid { grid-template-columns: 1fr; }
         }
 
     </style>
@@ -360,94 +354,94 @@
 <body>
 
     <nav class="sidebar">
-        <div class="logo-area">
-            BEMC <span>PROD</span>
-        </div>
         <ul class="nav-links">
-            <li><a href="#" class="active">DASHBOARD</a></li>
-            <li><a href="#pipeline">PIPELINE VFX</a></li>
-            <li><a href="#proyectos">PROYECTOS</a></li>
-            <li><a href="#contacto">CONTACTO</a></li>
+            <li><a href="#video" class="active">Video</a></li>
+            <li><a href="#cgi">CGI & 3D</a></li>
+            <li><a href="#foto">Fotografía</a></li>
+            <li><a href="#mkt">Marketing</a></li>
+            <li><a href="#contacto">Contacto</a></li>
         </ul>
-        <div class="status-indicator">
-            SISTEMA ONLINE - v1.0
+        <div class="status-badge">
+            SISTEMA ACTIVO v1.2
         </div>
     </nav>
 
     <main class="main-content">
         <header>
-            <h1>CENTRAL DE PRODUCCIÓN</h1>
-            <p>Bajo El Mismo Cuadro | Visual Effects & CGI Studio</p>
+            <div>
+                <h1>BEMC <span>PROD</span></h1>
+                <p class="tagline">Central Audiovisual & Marketing Intelligence</p>
+            </div>
         </header>
 
-        <section id="pipeline" class="workflow-section">
-            <h2 class="section-title">NUESTRO FLUJO DE TRABAJO CREATIVO</h2>
-            <div class="pipeline-container">
+        <section id="video" class="section-panel">
+            <h2 class="panel-title">PIPELINE DE VIDEO & CINE</h2>
+            <div class="showcase-grid">
 
-                <div class="pipeline-card">
-                    <span class="step-id">01</span>
-                    <div class="step-icon">🎬</div>
-                    <div class="step-title">CONCEPTO & STORY</div>
-                    <div class="step-desc">Conceptualización visual, storyboarding y planificación de planos de VFX.</div>
+                <div class="showcase-card">
+                    <div class="card-thumb" style="background-image: url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHw3fHxmaWxtJTIwbWFraW5nfGVufDB8fHw&ixlib=rb-1.2.1&q=80&w=600');"></div>
+                    <div class="card-details">
+                        <span class="content-type">Video Corporativo</span>
+                        <h3 class="project-title">Campaña "Sin Cuadro"</h3>
+                        <p class="project-meta">Pipeline: <span>Producción</span> + <span>DaVinci Color</span></p>
+                        <a href="#" class="card-action">VER TRABAJO</a>
+                    </div>
                 </div>
 
-                <div class="pipeline-card">
-                    <span class="step-id">02</span>
-                    <div class="step-icon">👾</div>
-                    <div class="step-title">CGI & MODELADO 3D</div>
-                    <div class="step-desc">Creación de assets, personajes y entornos 3D en Blender. Simulaciones dinámicas.</div>
-                </div>
-
-                <div class="pipeline-card">
-                    <span class="step-id">03</span>
-                    <div class="step-icon">🎥</div>
-                    <div class="step-title">POST & COMPOSICIÓN</div>
-                    <div class="step-desc">Integración de CGI, tracking de cámara y composición final en After Effects.</div>
-                </div>
-
-                <div class="pipeline-card">
-                    <span class="step-id">04</span>
-                    <div class="step-id">04</div>
-                    <div class="step-icon">📼</div>
-                    <div class="step-title">RENDER & ENTREGA</div>
-                    <div class="step-desc">Renderizado optimizado, corrección de color final y control de calidad.</div>
+                <div class="showcase-card">
+                    <div class="card-thumb" style="background-image: url('https://images.unsplash.com/photo-1601138213693-0e86b2450410?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHw0fHwzZCUyMG1vZGVsaW5nfGVufDB8fHw&ixlib=rb-1.2.1&q=80&w=600');"></div>
+                    <div class="card-details">
+                        <span class="content-type">Spot Publicitario</span>
+                        <h3 class="project-title">VFX Campaña X</h3>
+                        <p class="project-meta">Pipeline: <span>After Effects</span> + <span>Blender Integration</span></p>
+                        <a href="#" class="card-action">VER TRABAJO</a>
+                    </div>
                 </div>
 
             </div>
         </section>
 
-        <section id="proyectos" class="projects-section">
-            <h2 class="section-title">PROYECTOS EN PANEL DE CONTROL</h2>
-            <div class="projects-grid">
+        <section id="cgi" class="section-panel">
+            <h2 class="panel-title">PIPELINE CGI & DESARROLLO 3D</h2>
+            <div class="showcase-grid">
 
-                <div class="project-card">
-                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1579389083175-2479f6e6b8c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHwxfHx2Znh8ZW58MHx8fA&ixlib=rb-1.2.1&q=80&w=600');"></div>
-                    <div class="project-details">
-                        <span class="project-status status-final">FINALIZADO</span>
-                        <h3 class="project-title">SHOWREEL VFX 2026</h3>
-                        <p class="project-meta">Pipeline: <span>Blender</span> + <span>After Effects</span></p>
-                        <a href="#" class="btn-action">VER TRABAJO</a>
+                <div class="showcase-card">
+                    <div class="card-thumb" style="background-image: url('https://images.unsplash.com/photo-1598520106830-8c45c2035460?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHw5fHxmaWxtJTIwbWFraW5nfGVufDB8fHw&ixlib=rb-1.2.1&q=80&w=600');"></div>
+                    <div class="card-details">
+                        <span class="content-type">Asset 3D</span>
+                        <h3 class="project-title">Modelado Personaje CGI</h3>
+                        <p class="project-meta">Pipeline: <span>Blender Sculpting</span> + <span>Texturing</span></p>
+                        <a href="#" class="card-action">VER RENDER</a>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1601138213693-0e86b2450410?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHw0fHwzZCUyMG1vZGVsaW5nfGVufDB8fHw&ixlib=rb-1.2.1&q=80&w=600');"></div>
-                    <div class="project-details">
-                        <span class="project-status status-prod">EN POST-PRODUCCIÓN</span>
-                        <h3 class="project-title">CORTOMETRAJE "CYBER-CUADRO"</h3>
-                        <p class="project-meta">Pipeline: <span>CGI</span> + <span>Compositing</span></p>
-                        <a href="#" class="btn-action">VER AVANCES</a>
+            </div>
+        </section>
+
+        <section id="foto" class="section-panel">
+            <h2 class="panel-title">REPORTE FOTOGRÁFICO</h2>
+            <div class="photo-grid">
+                <div class="photo-card" style="background-image: url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHw3fHxmaWxtJTIwbWFraW5nfGVufDB8fHw&ixlib=rb-1.2.1&q=80&w=600');"></div>
+                <div class="photo-card" style="background-image: url('https://images.unsplash.com/photo-1601138213693-0e86b2450410?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHw0fHwzZCUyMG1vZGVsaW5nfGVufDB8fHw&ixlib=rb-1.2.1&q=80&w=600');"></div>
+                <div class="photo-card" style="background-image: url('https://images.unsplash.com/photo-1598520106830-8c45c2035460?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHw5fHxmaWxtJTIwbWFraW5nfGVufDB8fHw&ixlib=rb-1.2.1&q=80&w=600');"></div>
+            </div>
+        </section>
+
+        <section id="mkt" class="section-panel">
+            <h2 class="panel-title">CENTRAL DE MARKETING AUDIOVISUAL</h2>
+            <div class="marketing-panels">
+
+                <div class="testimony-card">
+                    <p class="testimony-quote">No solo crearon un video hermoso, sino que la campaña que diseñaron tuvo un impacto directo en nuestras ventas. BEMC sabe vender contenido.</p>
+                    <div class="testimony-author">
+                        <span class="author-name">Ana Rodríguez</span>
+                        <span class="author-comp">Dir. Marketing, InnovaTech</span>
                     </div>
                 </div>
 
-                 <div class="project-card">
-                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1598520106830-8c45c2035460?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHw5fHxmaWxtJTIwbWFraW5nfGVufDB8fHw&ixlib=rb-1.2.1&q=80&w=600');"></div>
-                    <div class="project-details">
-                        <span class="project-status status-final">FINALIZADO</span>
-                        <h3 class="project-title">CAMPAÑA COMERCIAL VFX</h3>
-                        <p class="project-meta">Pipeline: <span>Tracking</span> + <span>Integration</span></p>
-                        <a href="#" class="btn-action">VER ENTREGA</a>
-                    </div>
+                <div class="mkt-box">
+                    <h3>ESTRATEGIA VISUAL QUE CONVIERTE</h3>
+                    <p>Fusionamos la creatividad cinematográfica con la analítica de marketing. No creamos contenido para que se vea bonito, creamos contenido que genera resultados para tu negocio.</p>
                 </div>
 
             </div>
