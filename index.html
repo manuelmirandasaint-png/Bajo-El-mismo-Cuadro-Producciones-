@@ -3,297 +3,451 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bajo El Mismo Cuadro | Central de Producción</title>
+    <title>Bajo El Mismo Cuadro | Central de Producción Creativa</title>
     <style>
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #161616;
-            --text-primary: #e0e0e0;
-            --text-secondary: #a0a0a0;
-            --accent: #00bcd4; /* Cian tipo interfaz tecnológica */
-            --border: #2a2a2a;
+            --bg-dark: #050505; /* Negro profundo cinematográfico */
+            --bg-panel: #111111; /* Gris muy oscuro para paneles */
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent-vfx: #ff3e3e; /* Rojo neón/alerta, muy de VFX/render */
+            --accent-vfx-glow: rgba(255, 62, 62, 0.3);
+            --border: #222222;
+            --font-impact: 'Oswald', sans-serif; /* Tipografía fuerte para títulos */
+            --font-body: 'Avenir', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
+        /* Importar fuente Oswald para un look más "cine" */
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap');
+
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'SF Mono', 'Roboto Mono', Menlo, monospace; /* Fuente tipo código, muy pro */
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
             margin: 0;
             display: flex;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* --- Panel Lateral (Sidebar) --- */
+        /* --- Panel Lateral Estilizado (Sidebar) --- */
         .sidebar {
-            width: 250px;
-            background-color: var(--bg-secondary);
+            width: 260px;
+            background-color: var(--bg-panel);
             border-right: 1px solid var(--border);
-            padding: 20px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
+            position: fixed; /* Fixed para que siempre esté ahí */
+            height: 100vh;
+            z-index: 100;
         }
 
         .logo-area {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--accent);
+            font-family: var(--font-impact);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--accent-vfx);
+            padding-bottom: 15px;
+            text-align: center;
+        }
+
+        .logo-area span {
+            color: var(--accent-vfx);
         }
 
         .nav-links {
             list-style: none;
             padding: 0;
             margin: 0;
+            flex-grow: 1;
         }
 
         .nav-links li {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-secondary);
-            transition: 0.3s;
-            display: block;
-            padding: 10px;
-            border-radius: 4px;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 6px;
         }
 
+        /* Efecto de hover tipo neón visual */
         .nav-links a:hover, .nav-links a.active {
-            color: var(--accent);
-            background-color: rgba(0, 188, 212, 0.1);
+            color: var(--text-main);
+            background-color: rgba(255, 255, 255, 0.03);
+            box-shadow: 0 0 15px var(--accent-vfx-glow);
+            border: 1px solid rgba(255, 62, 62, 0.2);
+        }
+
+        .status-indicator {
+            font-size: 0.8rem;
+            color: #4caf50; /* Verde online */
+            margin-top: auto;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 4px;
         }
 
         /* --- Panel Principal (Main Content) --- */
         .main-content {
             flex-grow: 1;
-            padding: 40px;
+            margin-left: 260px; /* Espacio para la sidebar fixed */
+            padding: 50px;
         }
 
         header {
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent-vfx);
+            box-shadow: 0 0 15px var(--accent-vfx-glow);
         }
 
         header h1 {
-            font-size: 2rem;
+            font-family: var(--font-impact);
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin: 0 0 10px 0;
         }
 
         header p {
-            color: var(--text-secondary);
-            margin: 0;
-        }
-
-        /* --- Flujo de Trabajo (Timeline/Process) --- */
-        .workflow-section {
-            margin-bottom: 40px;
-        }
-
-        .section-title {
             font-size: 1.2rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-            text-transform: uppercase;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 300;
         }
 
-        .timeline {
+        /* --- Títulos de Sección Estilizados --- */
+        .section-title {
+            font-family: var(--font-impact);
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background-color: var(--accent-vfx);
+            margin-right: 15px;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--accent-vfx-glow);
+        }
+
+        /* --- Flujo de Trabajo (Pipeline Visual) --- */
+        .workflow-section {
+            margin-bottom: 60px;
+        }
+
+        .pipeline-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            gap: 25px;
         }
 
-        .timeline-item {
-            background-color: var(--bg-secondary);
+        .pipeline-card {
+            background-color: var(--bg-panel);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: 10px;
+            padding: 25px;
             position: relative;
+            transition: 0.4s ease;
+            overflow: hidden;
         }
 
-        .timeline-item::after {
-            content: '→';
-            position: absolute;
-            right: -15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--border);
-            font-size: 1.5rem;
+        .pipeline-card:hover {
+            border-color: rgba(255, 62, 62, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .timeline-item:last-child::after {
+        /* Efecto visual de fondo en hover */
+        .pipeline-card::before {
             content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,62,62,0.05) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transition: 0.4s ease;
         }
 
-        .step-number {
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            display: block;
+        .pipeline-card:hover::before {
+            opacity: 1;
+        }
+
+        .step-id {
+            font-family: var(--font-impact);
+            font-size: 2.5rem;
+            color: rgba(255, 62, 62, 0.1);
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-weight: 700;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--accent-vfx);
         }
 
         .step-title {
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-family: var(--font-impact);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            color: var(--text-main);
         }
 
         .step-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
         }
 
-        /* --- Sección de Proyectos Activos (Grid) --- */
+        /* --- Sección de Proyectos (Grilla Visual) --- */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
         }
 
         .project-card {
-            background-color: var(--bg-secondary);
+            background-color: var(--bg-panel);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            transition: 0.3s;
-            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.4s ease;
+            position: relative;
         }
 
         .project-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
+            border-color: var(--accent-vfx);
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 62, 62, 0.15);
+        }
+
+        /* Imagen de proyecto (Placeholder visual) */
+        .project-thumb {
+            height: 200px;
+            background-color: #222;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .project-thumb::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, var(--bg-panel), rgba(0,0,0,0));
+        }
+
+        .project-details {
+            padding: 25px;
         }
 
         .project-status {
             font-size: 0.8rem;
             text-transform: uppercase;
-            padding: 4px 8px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 5px 10px;
             border-radius: 4px;
             display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .status-completed {
-            background-color: rgba(76, 175, 80, 0.2);
-            color: #4caf50;
-        }
-
-        .status-pipeline {
-            background-color: rgba(255, 152, 0, 0.2);
-            color: #ff9800;
-        }
-
-        .project-title {
-            font-size: 1.1rem;
-            margin: 0 0 10px 0;
-        }
-
-        .project-tools {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
             margin-bottom: 15px;
         }
 
-        .project-tools span {
-            background-color: var(--bg-primary);
-            padding: 2px 6px;
-            border-radius: 3px;
-            margin-right: 5px;
+        .status-final {
+            background-color: rgba(76, 175, 80, 0.15);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
         }
 
-        .btn-view {
-            text-decoration: none;
-            color: var(--bg-primary);
-            background-color: var(--accent);
-            padding: 8px 16px;
-            border-radius: 4px;
+        .status-prod {
+            background-color: rgba(255, 152, 0, 0.15);
+            color: #ff9800;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+        }
+
+        .project-title {
+            font-family: var(--font-impact);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin: 0 0 10px 0;
+            color: var(--text-main);
+        }
+
+        .project-meta {
             font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .project-meta span {
+            color: var(--accent-vfx);
+            margin-right: 10px;
+        }
+
+        .btn-action {
+            text-decoration: none;
+            color: var(--text-main);
+            background-color: transparent;
+            border: 2px solid var(--accent-vfx);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-family: var(--font-impact);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s ease;
             display: inline-block;
         }
 
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 10px 20px; }
-            .nav-links { display: flex; flex-wrap: wrap; gap: 10px; }
-            .timeline { grid-template-columns: 1fr; }
-            .timeline-item::after { content: '↓'; right: 50%; top: auto; bottom: -20px; transform: translateX(50%); }
+        .btn-action:hover {
+            background-color: var(--accent-vfx);
+            box-shadow: 0 0 20px var(--accent-vfx-glow);
         }
+
+        /* --- Media Queries para Móvil --- */
+        @media (max-width: 992px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); padding: 20px; }
+            .logo-area { margin-bottom: 20px; }
+            .nav-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+            .nav-links li { margin-bottom: 0; }
+            .main-content { margin-left: 0; padding: 30px; }
+            .pipeline-container { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 576px) {
+            header h1 { font-size: 2rem; }
+            .pipeline-container { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+
     </style>
 </head>
 <body>
 
     <nav class="sidebar">
         <div class="logo-area">
-            BEMC_PROD
+            BEMC <span>PROD</span>
         </div>
         <ul class="nav-links">
-            <li><a href="#" class="active">Dashboard</a></li>
-            <li><a href="#workflow">Pipeline</a></li>
-            <li><a href="#projects">Proyectos</a></li>
-            <li><a href="#contact">Contacto</a></li>
+            <li><a href="#" class="active">DASHBOARD</a></li>
+            <li><a href="#pipeline">PIPELINE VFX</a></li>
+            <li><a href="#proyectos">PROYECTOS</a></li>
+            <li><a href="#contacto">CONTACTO</a></li>
         </ul>
+        <div class="status-indicator">
+            SISTEMA ONLINE - v1.0
+        </div>
     </nav>
 
     <main class="main-content">
         <header>
-            <h1>Central de Producción Audiovisual</h1>
-            <p>ID_USUARIO: manuelmirandasaint-png | ESTADO: Online</p>
+            <h1>CENTRAL DE PRODUCCIÓN</h1>
+            <p>Bajo El Mismo Cuadro | Visual Effects & CGI Studio</p>
         </header>
 
-        <section id="workflow" class="workflow-section">
-            <h2 class="section-title">NUESTRO PIPELINE DE TRABAJO</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <span class="step-number">01</span>
-                    <div class="step-title">PRE-PRODUCCIÓN</div>
-                    <div class="step-desc">Conceptualización, Storyboarding y Planificación técnica.</div>
+        <section id="pipeline" class="workflow-section">
+            <h2 class="section-title">NUESTRO FLUJO DE TRABAJO CREATIVO</h2>
+            <div class="pipeline-container">
+
+                <div class="pipeline-card">
+                    <span class="step-id">01</span>
+                    <div class="step-icon">🎬</div>
+                    <div class="step-title">CONCEPTO & STORY</div>
+                    <div class="step-desc">Conceptualización visual, storyboarding y planificación de planos de VFX.</div>
                 </div>
-                <div class="timeline-item">
-                    <span class="step-number">02</span>
-                    <div class="step-title">PRODUCCIÓN / CGI</div>
-                    <div class="step-desc">Rodaje o Creación de Assets 3D y Simulaciones (Blender).</div>
+
+                <div class="pipeline-card">
+                    <span class="step-id">02</span>
+                    <div class="step-icon">👾</div>
+                    <div class="step-title">CGI & MODELADO 3D</div>
+                    <div class="step-desc">Creación de assets, personajes y entornos 3D en Blender. Simulaciones dinámicas.</div>
                 </div>
-                <div class="timeline-item">
-                    <span class="step-number">03</span>
-                    <div class="step-title">POST-PRODUCCIÓN</div>
-                    <div class="step-desc">Edición, VFX, Composición (After Effects) y Color.</div>
+
+                <div class="pipeline-card">
+                    <span class="step-id">03</span>
+                    <div class="step-icon">🎥</div>
+                    <div class="step-title">POST & COMPOSICIÓN</div>
+                    <div class="step-desc">Integración de CGI, tracking de cámara y composición final en After Effects.</div>
                 </div>
-                <div class="timeline-item">
-                    <span class="step-number">04</span>
-                    <div class="step-title">ENTREGA FINAL</div>
-                    <div class="step-desc">Renderizado optimizado y control de calidad final.</div>
+
+                <div class="pipeline-card">
+                    <span class="step-id">04</span>
+                    <div class="step-id">04</div>
+                    <div class="step-icon">📼</div>
+                    <div class="step-title">RENDER & ENTREGA</div>
+                    <div class="step-desc">Renderizado optimizado, corrección de color final y control de calidad.</div>
                 </div>
+
             </div>
         </section>
 
-        <section id="projects" class="projects-section">
-            <h2 class="section-title">PROYECTOS ACTIVOS Y FINALIZADOS</h2>
+        <section id="proyectos" class="projects-section">
+            <h2 class="section-title">PROYECTOS EN PANEL DE CONTROL</h2>
             <div class="projects-grid">
 
                 <div class="project-card">
-                    <span class="project-status status-completed">Completado</span>
-                    <h3 class="project-title">Showreel de CGI 2026</h3>
-                    <p class="project-tools">Herramientas: <span>Blender</span> <span>After Effects</span></p>
-                    <a href="#" class="btn-view">Ver Reporte</a>
+                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1579389083175-2479f6e6b8c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHwxfHx2Znh8ZW58MHx8fA&ixlib=rb-1.2.1&q=80&w=600');"></div>
+                    <div class="project-details">
+                        <span class="project-status status-final">FINALIZADO</span>
+                        <h3 class="project-title">SHOWREEL VFX 2026</h3>
+                        <p class="project-meta">Pipeline: <span>Blender</span> + <span>After Effects</span></p>
+                        <a href="#" class="btn-action">VER TRABAJO</a>
+                    </div>
                 </div>
 
                 <div class="project-card">
-                    <span class="project-status status-pipeline">En Pipeline (Post)</span>
-                    <h3 class="project-title">Cortometraje "Sin Cuadro"</h3>
-                    <p class="project-tools">Herramientas: <span>Premiere</span> <span>DaVinci</span></p>
-                    <a href="#" class="btn-view">Ver Avances</a>
+                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1601138213693-0e86b2450410?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHw0fHwzZCUyMG1vZGVsaW5nfGVufDB8fHw&ixlib=rb-1.2.1&q=80&w=600');"></div>
+                    <div class="project-details">
+                        <span class="project-status status-prod">EN POST-PRODUCCIÓN</span>
+                        <h3 class="project-title">CORTOMETRAJE "CYBER-CUADRO"</h3>
+                        <p class="project-meta">Pipeline: <span>CGI</span> + <span>Compositing</span></p>
+                        <a href="#" class="btn-action">VER AVANCES</a>
+                    </div>
                 </div>
 
                  <div class="project-card">
-                    <span class="project-status status-completed">Completado</span>
-                    <h3 class="project-title">Campaña VFX Marca X</h3>
-                    <p class="project-tools">Herramientas: <span>Blender</span> <span>Compositing</span></p>
-                    <a href="#" class="btn-view">Ver Entrega</a>
+                    <div class="project-thumb" style="background-image: url('https://images.unsplash.com/photo-1598520106830-8c45c2035460?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMjA5Nzh8MHwxfHNlYXJjaHw5fHxmaWxtJTIwbWFraW5nfGVufDB8fHw&ixlib=rb-1.2.1&q=80&w=600');"></div>
+                    <div class="project-details">
+                        <span class="project-status status-final">FINALIZADO</span>
+                        <h3 class="project-title">CAMPAÑA COMERCIAL VFX</h3>
+                        <p class="project-meta">Pipeline: <span>Tracking</span> + <span>Integration</span></p>
+                        <a href="#" class="btn-action">VER ENTREGA</a>
+                    </div>
                 </div>
 
             </div>
