@@ -3,260 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BEMC PROD | Management System</title>
+    <title>BEMC PROD | OS Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --orange: #FF9100;
-            --glass: rgba(25, 25, 25, 0.75);
-            --sidebar-bg: rgba(35, 35, 35, 0.4);
+            --glass: rgba(20, 20, 20, 0.7);
             --border: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
-            background: #000;
-            background-image: radial-gradient(circle at 50% -20%, #222, #000);
+            background: radial-gradient(circle at top right, #1a1a1a, #000);
             color: white;
             min-height: 100vh;
+            padding: 40px;
             overflow-x: hidden;
         }
 
-        /* --- HEADER PRINCIPAL (BARRA SUPERIOR) --- */
-        .top-nav {
-            height: 70px;
-            background: var(--glass);
+        /* --- BARRA SUPERIOR ARREGLADA (Más grande y sutil) --- */
+        .top-bar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 60px; /* Header más grande */
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(20px);
             display: flex;
             align-items: center;
             padding: 0 40px;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
             z-index: 1000;
+            border-bottom: 1px solid var(--border);
         }
 
-        .brand-logo {
-            height: 50px; /* Logo más grande */
-            margin-right: 40px;
+        .top-bar .logo-nav {
+            font-weight: bold;
+            margin-right: auto;
+            color: var(--orange);
+            font-size: 1.1rem;
         }
 
-        .top-menu a {
+        .top-bar .sub-menu {
+            display: flex;
+            gap: 20px;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .sub-menu a {
             color: white;
             text-decoration: none;
-            font-size: 0.9rem;
-            margin-right: 25px;
-            opacity: 0.7;
             transition: 0.3s;
         }
-        .top-menu a:hover { opacity: 1; color: var(--orange); }
+        .sub-menu a:hover { opacity: 1; color: var(--orange); }
 
-        /* --- CONTENEDOR TIPO FINDER (ERM) --- */
-        .finder-container {
-            display: flex;
-            max-width: 1400px;
-            margin: 40px auto;
+        /* --- CONTENEDOR DE "CARPETAS" (Estilo Original Bento) --- */
+        .desktop {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 80px; /* Espacio para el header más grande */
+            margin-bottom: 120px;
+        }
+
+        /* VENTANA TIPO FINDER (Mantenida) */
+        .window {
             background: var(--glass);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-            min-height: 70vh;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: 0.3s ease;
         }
+        .window:hover { transform: translateY(-5px); border-color: var(--orange); }
 
-        /* SIDEBAR IZQUIERDA */
-        .sidebar {
-            width: 240px;
-            background: var(--sidebar-bg);
-            border-right: 1px solid var(--border);
-            padding: 20px 0;
-        }
-
-        .sidebar-label {
-            font-size: 0.7rem;
-            font-weight: bold;
-            color: var(--orange);
-            padding: 10px 25px;
-            letter-spacing: 1px;
-            opacity: 0.8;
-        }
-
-        .sidebar-item {
-            padding: 12px 25px;
+        .window-header {
+            background: rgba(255,255,255,0.05);
+            padding: 10px 15px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: 0.2s;
-            color: rgba(255,255,255,0.7);
-        }
-        .sidebar-item:hover { background: rgba(255,255,255,0.05); color: white; }
-        .sidebar-item.active { background: rgba(255,145,0,0.15); color: var(--orange); font-weight: 600; }
-
-        /* ÁREA DE CONTENIDO (GALERÍA) */
-        .content-area {
-            flex-grow: 1;
-            padding: 40px;
-            overflow-y: auto;
+            gap: 8px;
         }
 
-        .grid-view {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+        .window-title { margin-left: 10px; font-size: 0.8rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; }
 
-        .folder-card {
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            padding: 15px;
-            border: 1px solid var(--border);
-            transition: 0.3s;
-        }
-        .folder-card:hover { border-color: var(--orange); transform: translateY(-3px); }
+        .window-content { padding: 20px; }
 
-        .thumb {
+        .folder-preview {
             width: 100%;
-            aspect-ratio: 16/9;
-            background: #111;
-            border-radius: 6px;
-            margin-bottom: 15px;
+            height: 180px;
+            border-radius: 8px;
             background-size: cover;
             background-position: center;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* --- DOCK CON TOOLTIPS --- */
-        .dock {
+        .folder-info h3 { font-size: 1.1rem; margin-bottom: 5px; color: var(--orange); }
+        .folder-info p { font-size: 0.85rem; opacity: 0.7; line-height: 1.4; }
+
+        /* --- DOCK INTERACTIVO CON TOOLTIPS (NUEVO) --- */
+        .dock-container {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(20px);
-            padding: 8px;
-            border-radius: 18px;
-            display: flex;
-            gap: 12px;
+            backdrop-filter: blur(15px);
+            padding: 12px;
+            border-radius: 22px;
             border: 1px solid var(--border);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
         }
 
-        .dock-icon {
-            width: 45px; height: 45px;
+        .dock-item {
+            width: 50px; height: 50px;
             background: #222;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            font-size: 1.5rem;
+            transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            transition: 0.2s;
+            position: relative; /* Para el tooltip */
         }
-        .dock-icon:hover { transform: scale(1.2) translateY(-10px); background: var(--orange); }
 
-        /* Tooltip */
-        .dock-icon::after {
-            content: attr(data-title);
+        /* Tooltip style */
+        .dock-item::after {
+            content: attr(data-title); /* Usar el atributo data-title */
             position: absolute;
             top: -45px;
-            background: rgba(0,0,0,0.8);
-            padding: 5px 12px;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 6px 14px;
             border-radius: 6px;
             font-size: 0.75rem;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
             transition: 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
-        .dock-icon:hover::after { opacity: 1; top: -55px; }
 
-        /* --- CLIENTES --- */
-        .clients {
-            padding: 60px 20px;
+        /* Efectos de Hover */
+        .dock-item:hover { transform: scale(1.4) translateY(-10px); background: var(--orange); }
+        .dock-item:hover::after { opacity: 1; top: -55px; }
+
+        /* --- FOOTER DE CLIENTES (Mantenida) --- */
+        .clients-footer {
+            margin-top: 60px;
             text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
         }
-        .client-grid {
+        .clients-footer h4 { font-size: 0.7rem; letter-spacing: 3px; opacity: 0.4; margin-bottom: 30px; }
+        .client-logos {
             display: flex;
             justify-content: center;
-            gap: 50px;
+            align-items: center;
+            gap: 60px;
             flex-wrap: wrap;
-            margin-top: 30px;
+            filter: grayscale(100%) brightness(200%);
             opacity: 0.5;
-            filter: grayscale(1);
         }
-        .client-grid img { height: 30px; }
+        .client-logos img { height: 35px; transition: 0.3s; }
+        .client-logos img:hover { filter: grayscale(0%); opacity: 1; }
 
-        /* --- ADAPTACIÓN MÓVIL --- */
-        @media (max-width: 768px) {
-            .finder-container { flex-direction: column; margin: 20px; }
-            .sidebar { width: 100%; display: flex; overflow-x: auto; padding: 10px; }
-            .sidebar-label { display: none; }
-            .sidebar-item { padding: 8px 15px; white-space: nowrap; }
-            .top-nav { padding: 0 20px; }
-            .top-menu { display: none; }
-            .dock { width: 90%; justify-content: space-around; }
+        /* --- MEDIA QUERIES PARA ADAPTACIÓN MÓVIL (Mantenida) --- */
+        @media (max-width: 992px) {
+            body { padding: 20px; }
+            .top-bar { padding: 0 20px; }
+            .top-bar .sub-menu { display: none; }
+            .dock-container { width: 90%; justify-content: space-around; padding: 10px; }
+            .desktop { grid-template-columns: 1fr; margin-top: 100px; }
         }
+
     </style>
 </head>
 <body>
 
-    <header class="top-nav">
-        <img src="bajo-el-mismo-cuadro-logo---copia.jpg" alt="BEMC Logo" class="brand-logo">
-        <nav class="top-menu">
-            <a href="#">PRODUCCIONES</a>
-            <a href="#">MARKETING</a>
-            <a href="#">SISTEMA</a>
+    <header class="top-bar">
+        <span class="logo-nav">BEMC PROD</span>
+        <nav class="sub-menu">
+            <a href="#video">VIDEO</a>
+            <a href="#cgi">CGI</a>
+            <a href="#foto">FOTOGRAFÍA</a>
+            <a href="#mkt">MARKETING</a>
         </nav>
+        <span style="font-size:0.8rem; opacity:0.6">Mar 23, 21:30</span>
     </header>
 
-    <div class="finder-container">
-        <aside class="sidebar">
-            <p class="sidebar-label">FAVORITOS</p>
-            <div class="sidebar-item active">🎥 Vídeos Recientes</div>
-            <div class="sidebar-item">🧊 Proyectos CGI</div>
-            <div class="sidebar-item">📷 Fotografía</div>
-            
-            <p class="sidebar-label" style="margin-top:20px">MARKETING</p>
-            <div class="sidebar-item">📊 Analíticas</div>
-            <div class="sidebar-item">🤝 Clientes</div>
-        </aside>
-
-        <main class="content-area">
-            <h2 style="margin-bottom:30px; font-weight:400; font-size: 1.5rem;">Explorador de Proyectos</h2>
-            <div class="grid-view">
-                
-                <div class="folder-card">
-                    <div class="thumb" style="background-image: url('https://images.unsplash.com/photo-1492691523567-61123617b365?q=80&w=400')"></div>
-                    <h4 style="color:var(--orange)">Showreel_2026.mp4</h4>
-                    <p style="font-size:0.8rem; opacity:0.6; margin-top:5px">VFX & Edición Final</p>
-                </div>
-
-                <div class="folder-card">
-                    <div class="thumb" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400')"></div>
-                    <h4 style="color:var(--orange)">Render_3D_Sim.obj</h4>
-                    <p style="font-size:0.8rem; opacity:0.6; margin-top:5px">Blender Procedural</p>
-                </div>
-
+    <div class="desktop">
+        
+        <div id="video" class="window">
+            <div class="window-header">
+                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                <span class="window-title">/Volumes/Video_Reel</span>
             </div>
-        </main>
+            <div class="window-content">
+                <div class="folder-preview" style="background-image: url('https://images.unsplash.com/photo-1492691523567-61123617b365?q=80&w=500')"></div>
+                <div class="folder-info">
+                    <h3>PRODUCCIÓN AUDIOVISUAL</h3>
+                    <p>Spots, cortometrajes y reels de alto impacto cinematográfico.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="cgi" class="window">
+            <div class="window-header">
+                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                <span class="window-title">/Volumes/CGI_3D</span>
+            </div>
+            <div class="window-content">
+                <div class="folder-preview" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500')"></div>
+                <div class="folder-info">
+                    <h3>CGI & VFX RENDER</h3>
+                    <p>Simulaciones en Blender y post-producción técnica avanzada.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="foto" class="window">
+            <div class="window-header">
+                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                <span class="window-title">/Volumes/Photography</span>
+            </div>
+            <div class="window-content">
+                <div class="folder-preview" style="background-image: url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=500')"></div>
+                <div class="folder-info">
+                    <h3>FOTOGRAFÍA PROFESIONAL</h3>
+                    <p>Captura de producto, moda y eventos con retoque digital.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <section class="clients">
-        <p style="font-size: 0.7rem; letter-spacing: 2px; opacity: 0.5;">PARTNERS ESTRATÉGICOS</p>
-        <div class="client-grid">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Sony_logo.svg">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg">
+    <footer id="mkt" class="clients-footer">
+        <h4>CLIENTES QUE CONFÍAN EN EL CUADRO</h4>
+        <div class="client-logos">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Cliente">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Cliente">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Sony_logo.svg" alt="Cliente">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Cliente">
         </div>
-    </section>
+    </footer>
 
-    <div class="dock">
-        <div class="dock-icon" data-title="Video">🎬</div>
-        <div class="dock-icon" data-title="CGI & 3D">🧊</div>
-        <div class="dock-icon" data-title="Fotografía">📷</div>
-        <div class="dock-icon" data-title="Marketing">📈</div>
-        <div class="dock-icon" data-title="Contacto">✉️</div>
+    <div class="dock-container">
+        <div class="dock-item" data-title="Video">🎬</div>
+        <div class="dock-item" data-title="CGI & 3D">🧊</div>
+        <div class="dock-item" data-title="Fotografía">📷</div>
+        <div class="dock-item" data-title="Marketing">📈</div>
+        <div class="dock-item" data-title="Contacto">✉️</div>
     </div>
 
 </body>
