@@ -3,128 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BEMC | Resume & Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>BEMC PROD | OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --orange: #FF9100;
-            --dark: #0A0A0A;
-            --card: #141414;
-            --text: #FFFFFF;
-            --muted: #888888;
+            --glass: rgba(20, 20, 20, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-        body { background-color: var(--dark); color: var(--text); padding: 40px 10%; }
+        body {
+            background: radial-gradient(circle at top right, #1a1a1a, #000);
+            color: white;
+            min-height: 100vh;
+            padding: 40px;
+            overflow-x: hidden;
+        }
 
-        /* --- GRID PRINCIPAL --- */
-        .bento-grid {
+        /* --- BARRA SUPERIOR TIPO MAC --- */
+        .top-bar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 30px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 0.75rem;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .top-bar .logo-nav { font-weight: bold; margin-right: 20px; color: var(--orange); }
+
+        /* --- CONTENEDOR DE "CARPETAS" --- */
+        .desktop {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto;
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            margin-bottom: 100px;
         }
 
-        /* Bloques Base */
-        .block {
-            background: var(--card);
-            border: 1px solid #222;
-            padding: 30px;
+        /* VENTANA TIPO FINDER */
+        .window {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: 0.3s ease;
+        }
+        .window:hover { transform: translateY(-5px); border-color: var(--orange); }
+
+        .window-header {
+            background: rgba(255,255,255,0.05);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+        .window-title { margin-left: 10px; font-size: 0.8rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; }
+
+        .window-content { padding: 20px; }
+
+        /* Galería dentro de la carpeta */
+        .folder-preview {
+            width: 100%;
+            height: 180px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .folder-info h3 { font-size: 1.1rem; margin-bottom: 5px; color: var(--orange); }
+        .folder-info p { font-size: 0.85rem; opacity: 0.7; line-height: 1.4; }
+
+        /* --- FOOTER DE CLIENTES --- */
+        .clients-footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+        }
+        .clients-footer h4 { font-size: 0.7rem; letter-spacing: 3px; opacity: 0.4; margin-bottom: 30px; }
+        .client-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            filter: grayscale(100%) brightness(200%);
+            opacity: 0.5;
+        }
+        .client-logos img { height: 35px; transition: 0.3s; }
+        .client-logos img:hover { filter: grayscale(0%); opacity: 1; }
+
+        /* --- DOCK DE MAC --- */
+        .dock-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            padding: 10px;
             border-radius: 20px;
-            transition: 0.3s;
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
         }
-        .block:hover { border-color: var(--orange); }
-
-        /* Perfil / CV Header */
-        .profile { grid-column: span 2; display: flex; align-items: center; gap: 20px; }
-        .logo-img { width: 100px; height: 100px; background: #000; border-radius: 15px; border: 2px solid var(--orange); padding: 10px; }
-        .profile h1 { font-size: 2rem; text-transform: uppercase; }
-        .profile span { color: var(--orange); }
-
-        /* Stats / Marketing Capacidad */
-        .stats { grid-column: span 1; text-align: center; display: flex; flex-direction: column; justify-content: center; }
-        .stats h2 { font-size: 3rem; color: var(--orange); line-height: 1; }
-        .stats p { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; }
-
-        /* Video Showcase (Grande) */
-        .video-main { grid-column: span 3; grid-row: span 2; position: relative; overflow: hidden; background: #000; padding: 0; }
-        .video-main img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-        .video-label { position: absolute; bottom: 30px; left: 30px; }
-
-        /* Skills / Tecnologías */
-        .skills { grid-column: span 1; }
-        .skill-tag { display: inline-block; background: #222; padding: 5px 12px; border-radius: 5px; margin: 5px 2px; font-size: 0.8rem; border: 1px solid #333; }
-
-        /* Secciones de Trabajo */
-        .work-cat { grid-column: span 2; display: flex; justify-content: space-between; align-items: center; }
-        .work-cat h3 { color: var(--orange); text-transform: uppercase; }
-
-        /* Footer / Contacto */
-        .cta { grid-column: span 4; background: var(--orange); color: black; text-align: center; font-weight: bold; font-size: 1.5rem; cursor: pointer; }
-
-        @media (max-width: 900px) {
-            .bento-grid { grid-template-columns: 1fr; }
-            .profile, .stats, .video-main, .skills, .work-cat, .cta { grid-column: span 1; }
+        .dock-item {
+            width: 50px; height: 50px;
+            background: #222;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
+        .dock-item:hover { transform: scale(1.4) translateY(-10px); background: var(--orange); }
+
+        @media (max-width: 768px) { .desktop { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <div class="bento-grid">
+    <div class="top-bar">
+        <span class="logo-nav">BEMC PROD</span>
+        <span>Archivo</span>
+        <span style="margin-left:15px">Edición</span>
+        <span style="margin-left:15px">Marketing</span>
+        <span style="margin-left:auto">Mar 23, 21:30</span>
+    </div>
+
+    <div class="desktop">
         
-        <div class="block profile">
-            <div class="logo-img">
-                <img src="bajo-el-mismo-cuadro-logo---copia.jpg" style="width:100%; height:100%; object-fit:contain;">
+        <div class="window">
+            <div class="window-header">
+                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                <span class="window-title">/Volumes/Video_Reel</span>
             </div>
-            <div>
-                <h1>BAJO EL MISMO <span>CUADRO</span></h1>
-                <p style="color: var(--muted)">Audiovisual & Marketing Intelligence</p>
-            </div>
-        </div>
-
-        <div class="block stats">
-            <h2>+20%</h2>
-            <p>Engagement Promedio</p>
-        </div>
-
-        <div class="block stats">
-            <h2>4K</h2>
-            <p>Standard de Entrega</p>
-        </div>
-
-        <div class="block video-main">
-            <img src="https://images.unsplash.com/photo-1536240478700-b8673fa8502f?q=80&w=1000" alt="Work">
-            <div class="video-label">
-                <span class="skill-tag" style="background:var(--orange); color:black">DESTACADO</span>
-                <h2>SHOWREEL 2026</h2>
+            <div class="window-content">
+                <div class="folder-preview" style="background-image: url('https://images.unsplash.com/photo-1492691523567-61123617b365?q=80&w=500')"></div>
+                <div class="folder-info">
+                    <h3>PRODUCCIÓN AUDIOVISUAL</h3>
+                    <p>Spots, cortometrajes y reels de alto impacto cinematográfico.</p>
+                </div>
             </div>
         </div>
 
-        <div class="block skills">
-            <h3 style="margin-bottom:15px">STACK TECNOLÓGICO</h3>
-            <span class="skill-tag">Blender</span>
-            <span class="skill-tag">After Effects</span>
-            <span class="skill-tag">Premiere Pro</span>
-            <span class="skill-tag">DaVinci Resolve</span>
-            <span class="skill-tag">SQL Server</span>
-            <span class="skill-tag">Python</span>
+        <div class="window">
+            <div class="window-header">
+                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                <span class="window-title">/Volumes/CGI_3D</span>
+            </div>
+            <div class="window-content">
+                <div class="folder-preview" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500')"></div>
+                <div class="folder-info">
+                    <h3>CGI & VFX RENDER</h3>
+                    <p>Simulaciones en Blender y post-producción técnica avanzada.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="block work-cat">
-            <h3>FOTOGRAFÍA</h3>
-            <p>→ Ver Galería</p>
+        <div class="window">
+            <div class="window-header">
+                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                <span class="window-title">/Volumes/Photography</span>
+            </div>
+            <div class="window-content">
+                <div class="folder-preview" style="background-image: url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=500')"></div>
+                <div class="folder-info">
+                    <h3>FOTOGRAFÍA PROFESIONAL</h3>
+                    <p>Captura de producto, moda y eventos con retoque digital.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="block work-cat">
-            <h3>CGI & VFX</h3>
-            <p>→ Ver Proyectos</p>
-        </div>
+    </div>
 
-        <div class="block cta">
-            ¿LISTO PARA ELEVAR TU MARCA? HABLEMOS.
+    <footer class="clients-footer">
+        <h4>CLIENTES QUE CONFÍAN EN EL CUADRO</h4>
+        <div class="client-logos">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Cliente">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Cliente">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Sony_logo.svg" alt="Cliente">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Cliente">
         </div>
+    </footer>
 
+    <div class="dock-container">
+        <div class="dock-item" title="Video">🎬</div>
+        <div class="dock-item" title="3D">🧊</div>
+        <div class="dock-item" title="Foto">📷</div>
+        <div class="dock-item" title="MKT">📈</div>
+        <div class="dock-item" title="Contacto">✉️</div>
     </div>
 
 </body>
